@@ -20,7 +20,7 @@ public class UsersController {
 
     @GetMapping()
     public String getAllUsers(Model model) {
-        System.out.println("start controller");
+
         model.addAttribute("users", userService.getAllUsers());
         return "users/index";
     }

@@ -8,11 +8,16 @@
 <body>
 
 <h2> Список пользователей</h2>
-
-<div th:each="user : ${users}">
-    <a th:href="@{/users/{id}(id=${user.id})}"
-       th:text="${user.id} + ' ' + ${user.name} + ' ' + ${user.age}">user</a>
-</div>
+<tr th:each="user : ${users}">
+    <td><a th:href="@{/users/{id}(id=${user.id})}" th:utext="${user.id}">id</a></td>
+    <td><a th:href="@{/users/{id}(id=${user.id})}" th:utext="${user.name}">name</a></td>
+    <td th:utext="${user.age}">age</td>
+    <td><a th:href="@{/users/{id}/edit(id=${user.id})}">Edit</a></td>
+    <td>
+        <form th:method="DELETE" th:action="@{/users/{id}(id=${user.id})}">
+            <input type="submit" value="Delete"/></form>
+    </td>
+</tr>
 
 <br/>
 <hr/>
