@@ -1,6 +1,9 @@
 package vita.all.web.services;
 
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import vita.all.web.dao.UserDao;
 import vita.all.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserServiceImp implements UserService {
+public class UserServiceImp implements UserService, UserDetailsService {
 
     private UserDao userDao;
 
@@ -34,6 +37,7 @@ public class UserServiceImp implements UserService {
     @Transactional
     @Override
     public void add(User user) {
+
         userDao.add(user);
     }
 
@@ -47,5 +51,10 @@ public class UserServiceImp implements UserService {
     @Override
     public User update(Long id, User updatedUser) {
        return userDao.update(id, updatedUser);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return userDao.getUserByName(s);
     }
 }

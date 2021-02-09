@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -49,6 +50,11 @@ public class UserDaoImp implements UserDao {
         userToBeUpdated.setAge(updatedUser.getAge());*/
     }
 
+    @Override
+    public User getUserByName(String s) {
+       return entityManager.createQuery("FROM User where name=:name", User.class).
+               setParameter("name", s).getSingleResult();
+    }
 
 
 }
